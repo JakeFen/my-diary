@@ -1,1 +1,34 @@
-<p>diary works!</p>
+<h2>Welcome to the Diary</h2>
+
+<table mat-table [dataSource]="diaryEntries">
+  <ng-container *ngFor="let column of diaryCol">
+    <ng-container [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef>{{ column.toUpperCase() }}</th>
+
+      <ng-container *ngIf="column != 'actions'; else actionCell">
+        <td mat-cell *matCellDef="let entry">
+          {{ entry[column] }}
+        </td>
+      </ng-container>
+
+      <ng-template #actionCell>
+        <td mat-cell *matCellDef="let entry; let i = index">
+          <button
+            (click)="onEdit(i)"
+            mat-flat-button
+            color="primary"
+            class="mr-3"
+          >
+            Edit
+          </button>
+          <button (click)="onDelete(i)" mat-flat-button color="warn">
+            Delete
+          </button>
+        </td>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="diaryCol"></tr>
+  <tr mat-row *matRowDef="let row; columns: diaryCol"></tr>
+</table>
