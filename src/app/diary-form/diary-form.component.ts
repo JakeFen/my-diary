@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DiaryEntry } from '../shared/types/models/diary-entry.model';
 import { DiaryDataService } from '../shared/diary-data/diary-data.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-diary-form',
@@ -28,14 +28,28 @@ import { Router } from '@angular/router';
 })
 export class DiaryFormComponent {
   diaryForm: FormGroup;
+  editMode = false;
+  diaryEntry: DiaryEntry;
+  paramId: number;
 
   constructor(
     private diaryDataService: DiaryDataService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
+    this.activatedRoute.paramMap.subscribe((paramMap) => {
+      if (paramMap.has('id')) {
+        this.editMode = true;
+        this.paramId = +paramMap.get('id')!;
+        this.diaryEntry = this.diaryDataService.getDiaryEntry(this.paramId);
+      }
+    });
     this.diaryForm = new FormGroup({
-      date: new FormControl(null, Validators.required),
-      message: new FormControl(null, Validators.required),
+      date: new FormControl(this.diaryEntry?.date || null, Validators.required),
+      message: new FormControl(
+        this.diaryEntry?.message || null,
+        Validators.required
+      ),
     });
   }
 
@@ -45,7 +59,9 @@ export class DiaryFormComponent {
       this.diaryForm.value.message
     );
 
-    this.diaryDataService.onAddDiaryEntry(newEntry);
+    if (this.editMode) {
+      this.diaryDataService.onUpdateDiaryEntry(this.paramId, newEntry);
+    } else this.diaryDataService.onAddDiaryEntry(newEntry);
     this.router.navigateByUrl('');
   }
 }

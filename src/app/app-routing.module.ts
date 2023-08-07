@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '' },
   { path: '', component: DiaryComponent },
   { path: 'data-entry', component: DiaryFormComponent },
+  { path: 'edit/:id', component: DiaryFormComponent },
 ];
 
 @NgModule({

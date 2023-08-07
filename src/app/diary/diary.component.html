@@ -1,7 +1,7 @@
 <div class="w-6/12 m-auto mt-10">
   <h2>Welcome to the Diary</h2>
 
-  <table mat-table [dataSource]="diaryEntries">
+  <table mat-table [dataSource]="diaryEntries" class="mat-elevation-z8">
     <ng-container *ngFor="let column of diaryCol">
       <ng-container [matColumnDef]="column">
         <th mat-header-cell *matHeaderCellDef>{{ column.toUpperCase() }}</th>

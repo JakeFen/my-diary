@@ -5,6 +5,7 @@ import { DiaryDataService } from '../shared/diary-data/diary-data.service';
 import { MatButtonModule } from '@angular/material/button';
 import { DiaryEntry } from '../shared/types/models/diary-entry.model';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-diary',
@@ -18,7 +19,10 @@ export class DiaryComponent implements OnDestroy {
   diaryEntries = new MatTableDataSource<DiaryEntry>();
   diarySubscription = new Subscription();
 
-  constructor(private diaryDataService: DiaryDataService) {
+  constructor(
+    private diaryDataService: DiaryDataService,
+    private router: Router
+  ) {
     this.diaryCol = this.diaryDataService.diaryCol;
 
     this.diaryEntries.data = this.diaryDataService.diaryEntries;
@@ -34,7 +38,7 @@ export class DiaryComponent implements OnDestroy {
   }
 
   onEdit(index: number): void {
-    console.log(index);
+    this.diaryDataService.onEdit(index);
   }
 
   onDelete(index: number): void {
