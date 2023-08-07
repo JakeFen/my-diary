@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { DiaryEntry } from '../types/models/diary-entry.model';
-import { DiaryData } from '../types/interfaces/diary.type';
 
 @Injectable({
   providedIn: 'root',
@@ -8,11 +7,16 @@ import { DiaryData } from '../types/interfaces/diary.type';
 export class DiaryDataService {
   constructor() {}
 
-  diaryData: DiaryData = {
-    columns: ['date', 'message', 'action'],
-    diaryEntries: [
-      new DiaryEntry('Jan 1', 'Entry 1'),
-      new DiaryEntry('Jan 1', 'Entry 1'),
-    ],
-  };
+  diaryCol: Array<string> = ['date', 'message', 'actions'];
+
+  diaryEntries: DiaryEntry[] = [
+    new DiaryEntry('Jan 1', 'Entry 1'),
+    new DiaryEntry('Jan 1', 'Entry 1'),
+  ];
+
+  onEdit(index: number) {}
+
+  onDelete(index: number) {
+    this.diaryEntries.splice(index, 1);
+  }
 }
