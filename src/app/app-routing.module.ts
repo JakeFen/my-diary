@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { bootstrapApplication } from '@angular/platform-browser';
 import { DiaryComponent } from './diary/diary.component';
+import { DiaryFormComponent } from './diary-form/diary-form.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '' },
   { path: '', component: DiaryComponent },
+  { path: 'data-entry', component: DiaryFormComponent },
 ];
 
 @NgModule({

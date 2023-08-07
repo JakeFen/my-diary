@@ -1,0 +1,17 @@
+<div class="w-6/12 m-auto mt-10">
+  <form (ngSubmit)="onSubmit()" [formGroup]="diaryForm">
+    <mat-form-field floatLabel="always" class="w-full">
+      <mat-label>Date</mat-label>
+      <input matInput placeholder="Date" formControlName="date" />
+    </mat-form-field>
+
+    <mat-form-field floatLabel="always" class="w-full">
+      <mat-label>Message</mat-label>
+      <input matInput placeholder="Message" formControlName="message" />
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" [disabled]="diaryForm.invalid">
+      Submit
+    </button>
+  </form>
+</div>

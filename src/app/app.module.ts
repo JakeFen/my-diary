@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { DiaryComponent } from './diary/diary.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DiaryFormComponent } from './diary-form/diary-form.component';
 
 @NgModule({
   declarations: [AppComponent],
